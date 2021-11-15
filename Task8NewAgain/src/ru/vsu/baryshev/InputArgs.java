@@ -21,14 +21,9 @@ public class InputArgs {
         this.strArr=strArr;
     }
 
-    public static InputArgs parseCmdArgs(String[] args,boolean checkForCLI){
+    public static InputArgs parseCmdArgs(String[] args){
 
         InputArgs file = new InputArgs(args[0]);
-
-        if(checkForCLI==true) {
-            file = new InputArgs(args[0]);
-        }else    file = new InputArgs(args[0],args[1]);
-
         return file;
     }
     public static double[][] strToArr(String str){
