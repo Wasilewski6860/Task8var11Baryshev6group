@@ -24,6 +24,7 @@ public class FrameMain extends JFrame {
     private JButton обработкаButton;
 
     public FrameMain(){
+
         this.setTitle("ТАбличка");
         this.setContentPane(panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,6 +33,7 @@ public class FrameMain extends JFrame {
         прочестьИзФайлаButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 String path = pathOfReading.getText();
                 double [][]array = ArrayUtils.readDoubleArray2FromFile(path);
                 JTableUtils.writeArrayToJTable(table1,array);
@@ -40,6 +42,7 @@ public class FrameMain extends JFrame {
         записьВФайлButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 String path = pathOfWriting.getText();
                 double[][] arr = WorkWithJT.writeJTtoArray(table1);
 
@@ -55,9 +58,11 @@ public class FrameMain extends JFrame {
         обработкаButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 double [][]array = WorkWithJT.writeJTtoArray(table1);
                  array = logic.solution(array);
                 JTableUtils.writeArrayToJTable(table1,array);
+
             }
         });
 

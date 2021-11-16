@@ -8,11 +8,16 @@ import java.util.Locale;
 import java.util.Vector;
 
 public class WorkWithJT {
+
     public static double[][] writeJTtoArray( JTable jt)  {
+
         Locale.setDefault(Locale.ENGLISH);
         double[][] array= new double[jt.getRowCount()][jt.getColumnCount()];
+
         for (int i = 0; i < array.length; i++) {
+
             for(int j =0;j< array[0].length;j++){
+
                 array[i][j] = Double.parseDouble((String)  jt.getValueAt(i,j));
             }
         }
@@ -24,12 +29,15 @@ public class WorkWithJT {
         int columns = array[0].length;
 
         DefaultTableModel model = new DefaultTableModel(0, columns) {
+
             public Class getColumnClass(int column) {
+
                 return Integer.class;
             }
         };
 
         for (int i = 0; i < array.length; i++) {
+
             double[] rowData = array[i];
             Vector<Object> row = new Vector<Object>(columns);
 
@@ -48,6 +56,7 @@ public class WorkWithJT {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
         return table;
     }
 }
