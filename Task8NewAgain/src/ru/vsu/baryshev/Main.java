@@ -12,6 +12,10 @@ public class Main {
 
         InputArgs p = InputArgs.parseCmdArgs(args);
         double[][] array = InputArgs.strToArr(p.strArr);
+        if(array==null){
+            System.out.println("Wrong input format, do in like 1,2,3-4,5,7");
+            return;
+        }
         array = logic.solution(array);
         InputArgs.printOfArray(array);
 

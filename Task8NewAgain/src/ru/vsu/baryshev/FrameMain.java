@@ -3,25 +3,24 @@ package ru.vsu.baryshev;
 import javax.swing.*;
 import ru.vsu.baryshev.util.JTableUtils;
 import ru.vsu.baryshev.util.ArrayUtils;
-import ru.vsu.baryshev.util.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.util.Arrays;
+import java.io.*;
 
 public class FrameMain extends JFrame {
     private JTextField pathOfReading;
     private JTextField textField2;
     private JTextField textField3;
-    private JButton сложитьButton;
     private JPanel panelMain;
     private JTable table1;
-    private JButton прочестьИзФайлаButton;
-    private JButton записьВФайлButton;
+    private JButton ManualReadingFromFileButton;
+    private JButton ManualWritingToFileButton;
     private JTextField pathOfWriting;
-    private JButton обработкаButton;
+    private JButton FileProcessingButton;
+    private JTextField Errors;
+    private JButton ReadFromDirectory;
+    private JButton WriteToFoleDirectory;
 
     public FrameMain(){
 
@@ -30,16 +29,68 @@ public class FrameMain extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
 
-        прочестьИзФайлаButton.addActionListener(new ActionListener() {
+        ManualReadingFromFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 String path = pathOfReading.getText();
-                double [][]array = ArrayUtils.readDoubleArray2FromFile(path);
-                JTableUtils.writeArrayToJTable(table1,array);
+
+
+               try {
+                   double [][]array = ArrayUtils.readDoubleArray2FromFile(path);
+                   JTableUtils.writeArrayToJTable(table1,array);
+
+               }catch (FileNotFoundException ex){
+                   Errors.setText("Wrong path of reading ");
+                   return;
+               }
+
+
             }
         });
-        записьВФайлButton.addActionListener(new ActionListener() {
+        ReadFromDirectory.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileopen = new JFileChooser();
+                int ret = fileopen.showDialog(null, "Открыть файл");
+                if (ret == JFileChooser.APPROVE_OPTION) {
+                    File file = fileopen.getSelectedFile();
+                    String path = file.toString();
+                    try {
+                        double [][]array = ArrayUtils.readDoubleArray2FromFile(path);
+                        JTableUtils.writeArrayToJTable(table1,array);
+
+                    }catch (FileNotFoundException ex){
+                        Errors.setText("Wrong path of reading ");
+                        return;
+                    }
+                }
+
+            }
+        });
+        WriteToFoleDirectory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileopen = new JFileChooser();
+                int ret = fileopen.showDialog(null, "Открыть файл");
+                if (ret == JFileChooser.APPROVE_OPTION) {
+                    File file = fileopen.getSelectedFile();
+                    String path = file.toString();
+                    double[][] arr = WorkWithJT.writeJTtoArray(table1);
+
+                    try {
+                        PrintStream ps = new PrintStream(path);
+                        InputArgs.saving(ps,arr);
+                    } catch (FileNotFoundException ex) {
+                        Errors.setText("Wrong path of writing ");
+                        return;
+                    }
+                }
+            }
+        });
+
+        ManualWritingToFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -50,12 +101,13 @@ public class FrameMain extends JFrame {
                     PrintStream ps = new PrintStream(path);
                     InputArgs.saving(ps,arr);
                 } catch (FileNotFoundException ex) {
-                    System.out.println();
+                    Errors.setText("Wrong path of writing ");
+                    return;
                 }
 
             }
         });
-        обработкаButton.addActionListener(new ActionListener() {
+        FileProcessingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 

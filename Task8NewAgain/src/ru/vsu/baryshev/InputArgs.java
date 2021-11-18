@@ -27,7 +27,14 @@ public class InputArgs {
 
         return file;
     }
+
     public static double[][] strToArr(String str){
+        for(int i=0;i<str.length();i++){
+            char ch = str.charAt(i);
+            if(ch>='a'&&ch<='z'||ch>='а'&&ch<='я'){
+                return null;
+            }
+        }
 
         String[] help1Array = str.split("-");
         String[][] help2Array = new String[help1Array.length][help1Array[0].length()];

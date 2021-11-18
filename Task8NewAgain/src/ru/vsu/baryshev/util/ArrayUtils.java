@@ -510,13 +510,10 @@ public class ArrayUtils {
         }
     }
 
-    public static double[][] readDoubleArray2FromFile(String fileName) {
-        try {
+    public static double[][] readDoubleArray2FromFile(String fileName) throws FileNotFoundException  {
             return toDoubleArray2(readLinesFromFile(fileName));
-        }
-        catch(FileNotFoundException e) {
-            return null;
-        }
+
+
     }
 
     public static void writeArrayToFile(String fileName, int[] arr, String itemFormat)
