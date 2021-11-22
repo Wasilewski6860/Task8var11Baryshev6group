@@ -101,6 +101,7 @@ public class InputArgs {
         return path;
     }
 
+
     public  static void saving(PrintStream pw,double[][] array){
 
         for(int i=0;i<array.length;i++) {
