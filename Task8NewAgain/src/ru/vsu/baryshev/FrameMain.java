@@ -21,6 +21,11 @@ public class FrameMain extends JFrame {
     private JTextField Errors;
     private JButton ReadFromDirectory;
     private JButton WriteToFoleDirectory;
+    private JButton plusRow;
+    private JButton minRow;
+    private JButton minColumn;
+    private JButton plusColmn;
+    private double[][] startArr = new double[1][1];
 
     public FrameMain(){
 
@@ -107,6 +112,43 @@ public class FrameMain extends JFrame {
 
             }
         });
+        plusRow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTableUtils.writeArrayToJTable(table1,startArr);
+                double[][] arr = new double[startArr.length+1][ startArr[0].length];
+                startArr = arr;
+
+            }
+        });
+        minRow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTableUtils.writeArrayToJTable(table1,startArr);
+                double[][] arr = new double[startArr.length-1][ startArr[0].length];
+                startArr = arr;
+
+            }
+        });
+        plusColmn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTableUtils.writeArrayToJTable(table1,startArr);
+                double[][] arr = new double[startArr.length+1][ startArr[0].length+1];
+                startArr = arr;
+
+            }
+        });
+        minColumn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTableUtils.writeArrayToJTable(table1,startArr);
+                double[][] arr = new double[startArr.length+1][ startArr[0].length-1];
+                startArr = arr;
+
+            }
+        });
+
         FileProcessingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
